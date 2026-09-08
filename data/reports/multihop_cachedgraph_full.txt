@@ -1,0 +1,922 @@
+==============================================================================
+  BLOCKCHAIN WALLET INVESTIGATION REPORT
+==============================================================================
+  WALLET:                        0x75c0623bae00749550cf1c1703e7382038b3109a
+  CHAIN:                         ethereum
+  DATA MODE:                     CACHED REAL DATA
+  DATA SOURCE: cached real graph
+    0x75c0623bae00749550cf1c1703e7382038b3109a_ethereum_live.gpickle
+  GRAPH FILE:                    data\graphs\0x75c0623bae00749550cf1c1703e7382038b3109a_ethereum_live.gpickle
+  INVESTIGATION ID:              1787604038-38b3109a
+  STARTED (UTC):                 2026-08-24T20:40:38Z
+  DURATION:                      0.147s
+  DATA COMPLETE:                 NO (see limitations)
+
+  NOTE: this report was produced from CACHED REAL DATA. The transactions are
+    genuine on-chain records acquired in an earlier run and reloaded from
+    disk. They are NOT live: any activity after the cache was written is
+    absent from every section below.
+
+  PARAMETERS: max_edges_explored=400000, max_hops=4, max_paths=25,
+    ml_enabled=False, time_window_days=0
+
+==============================================================================
+  SECTION 1: BLOCKCHAIN DATA SUMMARY
+==============================================================================
+  ACQUISITION STREAMS
+  - reloaded graph: 7674 nodes, 89259 edges
+
+  NORMALIZATION: not reported. This run loaded a prebuilt graph rather than
+    raw provider records, so the normalization stage ran when that graph was
+    originally built, not now.
+
+  TRANSACTION GRAPH
+    edges (transfers):             89259
+    Full build statistics are unavailable because this graph was reloaded
+      rather than built in this run.
+
+  WALLET PRESENT IN GRAPH:       YES
+
+==============================================================================
+  SECTION 2: FUND-FLOW ANALYSIS (TRANSACTION PATHS)
+==============================================================================
+  IMPORTANT: each route below is a TRANSACTION PATH -- a sequence of real
+    transfers that connects two addresses through the graph. It is NOT proof
+    that the same units of value travelled the whole route. An intermediary
+    can commingle, swap, hold, or split funds, so A -> B -> C does not
+    establish that C received A's money.
+
+  SEARCH STATUS:                 INCONCLUSIVE
+  MAX HOPS SEARCHED:             4
+  DATA OBSERVED TO:              2 hop(s)  <-- shallower than MAX HOPS
+
+  OUTBOUND SEARCH
+    targets searched:          6
+    targets reachable:         0
+    edges explored:            0
+    reachable / viable nodes:  3965 / 0
+    search completed:          NO -- data observed to 2 hop(s) only -- deeper hops were never acquired, so acquisition must be widened
+    - DATA HORIZON: the graph contains complete edges only to 2 hop(s) from
+        the wallet, but MAX_HOPS is 4. Routes longer than 2 hop(s) cannot be
+        observed in this dataset because the intervening transactions were
+        never acquired -- they were not searched and found absent. Any
+        negative below is therefore limited to 2 hop(s).
+    - Destination-aware pruning: 3965 node(s) reachable from the wallet within
+        4 hop(s); 0 of those can lie on a route to a searched address and were
+        the only nodes enumerated (graph has 7674 nodes / 89259 edges).
+    - No searched address is reachable from the wallet within the 2 hop(s)
+        this dataset actually observes. Breadth-first reachability was
+        exhaustive over the acquired edges and hit no budget, so this is a
+        COMPLETE negative at 2 hop(s) -- but it is INCONCLUSIVE for the
+        requested 4 hop(s), because hops 3-4 are absent from the data rather
+        than searched and empty.
+
+  INBOUND SEARCH
+    targets searched:          6
+    targets reachable:         0
+    edges explored:            0
+    reachable / viable nodes:  3962 / 0
+    search completed:          NO -- data observed to 2 hop(s) only -- deeper hops were never acquired, so acquisition must be widened
+    - DATA HORIZON: the graph contains complete edges only to 2 hop(s) from
+        the wallet, but MAX_HOPS is 4. Routes longer than 2 hop(s) cannot be
+        observed in this dataset because the intervening transactions were
+        never acquired -- they were not searched and found absent. Any
+        negative below is therefore limited to 2 hop(s).
+    - Destination-aware pruning: 3962 node(s) reachable from the wallet within
+        4 hop(s); 0 of those can lie on a route to a searched address and were
+        the only nodes enumerated (graph has 7674 nodes / 89259 edges).
+    - No searched address is reachable from the wallet within the 2 hop(s)
+        this dataset actually observes. Breadth-first reachability was
+        exhaustive over the acquired edges and hit no budget, so this is a
+        COMPLETE negative at 2 hop(s) -- but it is INCONCLUSIVE for the
+        requested 4 hop(s), because hops 3-4 are absent from the data rather
+        than searched and empty.
+
+  NO ROUTES LISTED. Within the 2 hop(s) this dataset observes, no route to a
+    known-VASP address exists, and that much IS a complete finding. Beyond it
+    nothing can be said: not every address at hop 2 had its own transactions
+    acquired, so no edges lead onward from there and a 3-hop route could not
+    appear here even if it exists on-chain. Raising --max-hops alone will not
+    help; acquisition has to reach the remaining addresses at that hop
+    (EXPANSION_MAX_ADDRESSES / EXPANSION_MAX_ADDRESSES_PER_HOP).
+
+==============================================================================
+  SECTION 3: VASP ATTRIBUTION
+==============================================================================
+  KNOWN-VASP DATASET:            data/seed/known_vasps.json
+  DATASET ENTRIES:               6
+  DATASET PROVENANCE BREAKDOWN
+    - community_label: 5
+    - official_disclosure: 1
+
+  Attribution is by EXACT, case-insensitive address match only. No fuzzy,
+    prefix, substring or 'similar-looking' matching is performed anywhere in
+    this system, because a near-miss on an address is not weak evidence -- it
+    is a different address.
+
+  ATTRIBUTION STATUS:            INCONCLUSIVE
+  CANDIDATES:                    0
+
+  RELATED BY UNDIRECTED CONNECTIVITY ONLY (NOT attributed)
+    These addresses share a connected component with the wallet but no
+      directed transfer path exists. Shared component membership is NOT
+      evidence of a relationship and is listed only so it is not mistaken for
+      a finding later.
+      Binance (0xf977814e90da44bfa03b6295a0616a897441acec) at undirected distance 4
+
+  SEARCH NOTES
+    - No known VASP address was connected in either direction within the 2
+        hop(s) this dataset observes. Not every address at hop 2 had its own
+        transactions acquired, so the graph holds no edges leading onward from
+        there and a route of 3+ hops could not be seen at all  -  it was not
+        searched and found absent. Reachability to 2 hop(s) was exhaustive, so
+        this is a confirmed negative at 2 hop(s) and INCONCLUSIVE for the
+        requested MAX_HOPS=4. Acquiring the remaining addresses at hop 2 would
+        be required to answer the deeper question.
+    - 1 known VASP address(es) are reachable only through the graph's
+        undirected projection (no directed evidence in either direction)  -
+        see related_by_undirected_graph_only. This is NOT attribution evidence
+        and does not change the status above.
+
+  ENTITY RESOLUTION
+    No entities resolved (no candidates to group).
+
+  DIRECT COUNTERPARTIES (1 hop)
+    total:                   9
+
+    0x000000000004444c5dc75cb358380d2e3de08a90  [NOT_IN_DATASET]
+      transfers:               46 (23 in / 23 out)
+      assets: ELEVATE, GIVE, GULD, WIN
+      first / last seen:       2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+      sample tx hashes:
+        0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+        0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+        0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+
+    0x66a9893cc07d91d95644aedd05d03f95e1dba8af  [NOT_IN_DATASET]
+      transfers:               23 (0 in / 23 out)
+      assets: ETH
+      first / last seen:       2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+      sample tx hashes:
+        0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+        0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+        0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+
+    0x000000000022d473030f116ddee9f6b43ac78ba3  [NOT_IN_DATASET]
+      transfers:               3 (0 in / 3 out)
+      assets: ETH
+      first / last seen:       2026-07-20 04:45:23Z .. 2026-08-21 18:15:23Z
+      sample tx hashes:
+        0x2327151547d5b905cc6044c38ab6e39807c387bc0b78b5fa8383c1e71285099d
+        0x23d957ca8834c0d6716167e9c129bd381d0d3d02857d421f025e2ac62ed2bebe
+        0xf4d0202b5288e0ee0ee149828716f188fe13c6f945cfa0bd226ca5e51a2cc896
+
+    0x396343362be2a4da1ce0c1c210945346fb82aa49  [NOT_IN_DATASET]
+      transfers:               1 (1 in / 0 out)
+      assets: ETH
+      first / last seen:       2026-08-23 08:03:47Z .. 2026-08-23 08:03:47Z
+      sample tx hashes:
+        0x7ac326fe1deb197a70c8819c413ac3326aff2fe23cbace63917ff1bfb38d332d
+
+    0x6e36ff75b0d12022748a35d274a5fefd3c8c9071  [NOT_IN_DATASET]
+      transfers:               1 (1 in / 0 out)
+      assets: ELEVATE
+      first / last seen:       2026-07-18 23:56:11Z .. 2026-07-18 23:56:11Z
+      sample tx hashes:
+        0x30bbffa3591d5add2b81d16655a3b712530add3cba3393a85ba8695a13ebb220
+
+    0x888888888887715fb9d9f84175af9e6cce46807e  [NOT_IN_DATASET]
+      transfers:               1 (0 in / 1 out)
+      assets: ETH
+      first / last seen:       2026-07-20 04:44:59Z .. 2026-07-20 04:44:59Z
+      sample tx hashes:
+        0x6cbcb3e17683fde39dc43b854957878edefd74a0b58988a8928f3cb5be18f440
+
+    0x95669a6589a81a6704bab1020722d0c405841885  [NOT_IN_DATASET]
+      transfers:               1 (0 in / 1 out)
+      assets: ETH
+      first / last seen:       2026-08-09 08:34:35Z .. 2026-08-09 08:34:35Z
+      sample tx hashes:
+        0x85ccaeae65a7f38918fcecbc623262ff1b6767c3b65f37e7beedb4b77dc33630
+
+    0xb10cb07ca2cdac77fbb5707f6690301f9d036f45  [NOT_IN_DATASET]
+      transfers:               1 (0 in / 1 out)
+      assets: ETH
+      first / last seen:       2026-08-21 18:15:11Z .. 2026-08-21 18:15:11Z
+      sample tx hashes:
+        0xba8b0c68aa7b9344099d43a987061bb14286a5bb230c0d138c88e8314ed5eba2
+
+    0xb1d9e23a9ee0e7763ce82af2335e00ded8d9e993  [NOT_IN_DATASET]
+      transfers:               1 (1 in / 0 out)
+      assets: ETH
+      first / last seen:       2026-07-19 00:36:59Z .. 2026-07-19 00:36:59Z
+      sample tx hashes:
+        0x4e510e7c17c975f29c7c01f7dbb2edf6de29e31d97449cfaa02ad1178660af8a
+
+
+==============================================================================
+  SECTION 4: BIDIRECTIONAL ANALYSIS
+==============================================================================
+  Direction matters and is never collapsed. A VASP sending to this wallet (a
+    withdrawal) is evidence in its own right even when the wallet never sends
+    to that VASP, and the reverse is a deposit. Both directions are searched
+    independently.
+
+  No directional evidence to report.
+  The search was INCOMPLETE, so absence of directional evidence here is not
+    evidence of absence.
+
+==============================================================================
+  SECTION 5: BEHAVIORAL INTELLIGENCE
+==============================================================================
+  Every item below is an INVESTIGATIVE INDICATOR: an observation measured
+    against a configured threshold. None of them is an allegation of criminal
+    conduct, and none is sufficient on its own. Each states its metric, its
+    threshold and the transactions it was computed from so it can be
+    independently checked.
+
+  INDICATORS OBSERVED: 9 across 8 type(s)
+    HIGH_FREQUENCY_COUNTERPARTY        2
+    ASSET_DIVERSITY                    1
+    CONSOLIDATION_PATTERN              1
+    FAST_INBOUND_OUTBOUND              1
+    HIGH_COUNTERPARTY_CONCENTRATION    1
+    REPEATED_FORWARDING                1
+    SPLIT_PATTERN                      1
+    TEMPORAL_BURST                     1
+
+  8 finding(s) are itemised in full below -- the first of each distinct
+    indicator type. The remaining 1 are repeats of a type already itemised,
+    whose metric, threshold and classification are identical by construction,
+    so they are listed compactly afterwards with the address and value that
+    differ.
+
+------------------------------------------------------------------------------
+  INDICATOR 1: SPLIT_PATTERN
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           unique_outgoing_counterparties
+    observed value:            6
+    threshold:                 4 (behavior_min_fanout_counterparties)
+    window:                    2026-07-20 04:44:59Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 6 unique outgoing counterparties across 52 outgoing transfer(s)
+      - Assets involved: ELEVATE, ETH, GIVE, WIN
+    metrics:
+      - total_outgoing_transfers = 52
+      - unique_outgoing_counterparties = 6
+    related addresses (6):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+      0x000000000022d473030f116ddee9f6b43ac78ba3
+      0x66a9893cc07d91d95644aedd05d03f95e1dba8af
+      0x888888888887715fb9d9f84175af9e6cce46807e
+      0x95669a6589a81a6704bab1020722d0c405841885
+      ... and 1 more
+    relevant transactions (10):
+      0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+      0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+      0x2327151547d5b905cc6044c38ab6e39807c387bc0b78b5fa8383c1e71285099d
+      0x23d957ca8834c0d6716167e9c129bd381d0d3d02857d421f025e2ac62ed2bebe
+      0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+      ... and 5 more
+
+------------------------------------------------------------------------------
+  INDICATOR 2: CONSOLIDATION_PATTERN
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           unique_incoming_counterparties
+    observed value:            4
+    threshold:                 4 (behavior_min_fanin_counterparties)
+    window:                    2026-07-18 23:56:11Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 4 unique incoming counterparties across 26 incoming transfer(s)
+      - Assets involved: ELEVATE, ETH, GIVE, GULD, WIN
+    metrics:
+      - total_incoming_transfers = 26
+      - unique_incoming_counterparties = 4
+    related addresses (4):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+      0x396343362be2a4da1ce0c1c210945346fb82aa49
+      0x6e36ff75b0d12022748a35d274a5fefd3c8c9071
+      0xb1d9e23a9ee0e7763ce82af2335e00ded8d9e993
+    relevant transactions (10):
+      0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+      0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+      0x30bbffa3591d5add2b81d16655a3b712530add3cba3393a85ba8695a13ebb220
+      0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+      0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+      ... and 5 more
+
+------------------------------------------------------------------------------
+  INDICATOR 3: HIGH_FREQUENCY_COUNTERPARTY
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           transfer_count
+    observed value:            46
+    threshold:                 5 (behavior_high_frequency_min_transfers)
+    window:                    2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 46 transfer(s) exchanged with
+          0x000000000004444c5dc75cb358380d2e3de08a90 (incoming + outgoing
+          combined)
+    metrics:
+      - transfer_count = 46
+    related addresses (1):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+    relevant transactions (10):
+      0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+      0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+      0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+      0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+      0x53ed8942dde7e3cb4765a93e8a2b77c70798c58369b564f3975948d06a1c8cb1
+      ... and 5 more
+
+------------------------------------------------------------------------------
+  INDICATOR 4: TEMPORAL_BURST
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           burst_transfer_count
+    observed value:            5
+    threshold:                 5 (behavior_burst_min_transfers)
+    window:                    2026-07-20 04:44:59Z .. 2026-07-20 04:45:59Z
+    evidence:
+      - 5 transfer(s) (incoming + outgoing) fell within a 3600-second window
+    metrics:
+      - burst_transfer_count = 5
+      - window_seconds = 3600
+
+------------------------------------------------------------------------------
+  INDICATOR 5: REPEATED_FORWARDING
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           forwarding_event_count
+    observed value:            25
+    threshold:                 2 (behavior_min_forwarding_events)
+    window:                    2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+          t=1784522759, forwarded to
+          0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1784522759 (0s
+          later)
+      - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+          t=1785044831, forwarded to
+          0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785044831 (0s
+          later)
+      - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+          t=1785059027, forwarded to
+          0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785059027 (0s
+          later)
+      - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+          t=1785121487, forwarded to
+          0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785121487 (0s
+          later)
+      - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+          t=1785566087, forwarded to
+          0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785566087 (0s
+          later)
+      - ...and 20 more receive-then-forward event(s)
+    metrics:
+      - forwarding_event_count = 25
+      - window_seconds = 3600
+    related addresses (3):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+      0x396343362be2a4da1ce0c1c210945346fb82aa49
+      0x66a9893cc07d91d95644aedd05d03f95e1dba8af
+
+------------------------------------------------------------------------------
+  INDICATOR 6: FAST_INBOUND_OUTBOUND
+------------------------------------------------------------------------------
+    classification:            INVESTIGATIVE_INDICATOR
+    observed metric:           fastest_turnaround_seconds
+    observed value:            0
+    threshold:                 600 (behavior_fast_passthrough_max_seconds)
+    window:                    2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 24 inbound transfer(s) were followed by an outbound transfer within
+          600s
+      - Fastest turnaround: 0s (in from
+          0x000000000004444c5dc75cb358380d2e3de08a90 at t=1784522759, out to
+          0x000000000004444c5dc75cb358380d2e3de08a90)
+    metrics:
+      - fast_passthrough_event_count = 24
+      - fastest_turnaround_seconds = 0
+      - median_turnaround_seconds = 0
+    related addresses (2):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+      0x396343362be2a4da1ce0c1c210945346fb82aa49
+    relevant transactions (10):
+      0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+      0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+      0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+      0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+      0x53ed8942dde7e3cb4765a93e8a2b77c70798c58369b564f3975948d06a1c8cb1
+      ... and 5 more
+
+------------------------------------------------------------------------------
+  INDICATOR 7: HIGH_COUNTERPARTY_CONCENTRATION
+------------------------------------------------------------------------------
+    classification:            SUPPORTING_EVIDENCE
+    observed metric:           top_counterparty_share
+    observed value:            0.5897
+    threshold:                 0.5 (behavior_counterparty_concentration_min_share)
+    window:                    2026-07-20 04:45:59Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 0x000000000004444c5dc75cb358380d2e3de08a90 accounts for 46 of 78
+          transfer(s) touching this wallet (59.0%)
+      - 9 distinct counterparty address(es) in total
+    metrics:
+      - distinct_counterparties = 9
+      - top_counterparty_share = 0.5897
+      - top_counterparty_transfer_count = 46
+      - total_transfers = 78
+    related addresses (1):
+      0x000000000004444c5dc75cb358380d2e3de08a90
+    relevant transactions (10):
+      0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+      0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+      0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+      0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+      0x53ed8942dde7e3cb4765a93e8a2b77c70798c58369b564f3975948d06a1c8cb1
+      ... and 5 more
+
+------------------------------------------------------------------------------
+  INDICATOR 8: ASSET_DIVERSITY
+------------------------------------------------------------------------------
+    classification:            CONTEXTUAL
+    observed metric:           distinct_asset_count
+    observed value:            5
+    threshold:                 4 (behavior_min_asset_diversity)
+    window:                    2026-07-18 23:56:11Z .. 2026-08-24 11:05:35Z
+    evidence:
+      - 5 distinct asset(s) moved through this wallet across 78 transfer(s)
+      - Assets: ELEVATE, ETH, GIVE, GULD, WIN
+    metrics:
+      - distinct_asset_count = 5
+      - distinct_symbol_count = 5
+      - total_transfers = 78
+
+------------------------------------------------------------------------------
+  FURTHER FINDINGS, GROUPED BY INDICATOR TYPE
+------------------------------------------------------------------------------
+
+    HIGH_FREQUENCY_COUNTERPARTY: 1 further finding(s)
+      metric transfer_count, threshold 5
+        (behavior_high_frequency_min_transfers), classification
+        INVESTIGATIVE_INDICATOR
+      0x66a9893cc07d91d95644aedd05d03f95e1dba8af   = 23       10 tx
+
+
+==============================================================================
+  SECTION 6: TEMPORAL AND AMOUNT ANALYSIS
+==============================================================================
+  ACTIVITY WINDOW
+    transfers analysed:          78
+    with timestamps:             78 (0 missing)
+    first seen (UTC):            2026-07-18T23:56:11Z
+    last seen (UTC):             2026-08-24T11:05:35Z
+    lifespan (days):             36.46
+    active days:                 18
+    transfers / active day:      4.33
+    longest idle gap (days):     6.04
+    median gap (s):              0
+    mean gap (s):                40916.42
+
+  DIRECTIONAL COUNTS
+    inbound transfers:           26
+    outbound transfers:          52
+    self transfers:              0
+    unique senders:              4
+    unique receivers:            6
+
+  TIMING PROFILE (UTC)
+    busiest hour:                8
+    busiest weekday:             5 (Sat)
+    hourly distribution (24 UTC hours):
+      00h |#############                           | 4
+      01h |####################                    | 6
+      02h |##########                              | 3
+      03h |##########                              | 3
+      04h |###########################             | 8
+      05h |####################                    | 6
+      06h |##########                              | 3
+      07h |                                        | 0
+      08h |########################################| 12
+      09h |##########                              | 3
+      10h |##########                              | 3
+      11h |##########                              | 3
+      12h |##########                              | 3
+      13h |                                        | 0
+      14h |##############################          | 9
+      15h |                                        | 0
+      16h |                                        | 0
+      17h |                                        | 0
+      18h |#################                       | 5
+      19h |##########                              | 3
+      20h |##########                              | 3
+      21h |                                        | 0
+      22h |                                        | 0
+      23h |###                                     | 1
+    weekday distribution:
+      Mon |###############################         | 17
+      Tue |                                        | 0
+      Wed |#####                                   | 3
+      Thu |#####                                   | 3
+      Fri |####################                    | 11
+      Sat |########################################| 22
+      Sun |########################################| 22
+
+  PER-ASSET AMOUNTS
+
+    ETH (NATIVE)
+      transfers:             31 (2 in / 29 out)
+      total inbound:         0.00158668
+      total outbound:        0
+      net flow:              0.00158668
+      min / median / max:    0 / 0 / 0.0014501
+      mean:                  5.118e-05
+
+    GIVE (ERC20)
+      contract:              0x95669a6589a81a6704bab1020722d0c405841885
+      transfers:             19 (10 in / 9 out)
+      total inbound:         251153.24179347
+      total outbound:        251112.20366983
+      net flow:              41.03812364
+      min / median / max:    1326.89933105 / 16841.59377588 / 166237.60542579
+      mean:                  26435.02344544
+
+    WIN (ERC20)
+      contract:              0xb10cb07ca2cdac77fbb5707f6690301f9d036f45
+      transfers:             13 (9 in / 4 out)
+      total inbound:         290467.78450391
+      total outbound:        20798.86029552
+      net flow:              269668.92420839
+      min / median / max:    1539.24628846 / 7437.20338703 / 192084.05474478
+      mean:                  23943.58806149
+
+    ELEVATE (ERC20)
+      contract:              0x888888888887715fb9d9f84175af9e6cce46807e
+      transfers:             11 (1 in / 10 out)
+      total inbound:         88014.85644236
+      total outbound:        62676.14008081
+      net flow:              25338.71636155
+      min / median / max:    3248.14956231 / 6032.21155966 / 88014.85644236
+      mean:                  13699.18150211
+
+    GULD (ERC20)
+      contract:              0x14d6c649292c5c9790c5196d1a9ea039307947a1
+      transfers:             4 (4 in / 0 out)
+      total inbound:         12488.45480756
+      total outbound:        0
+      net flow:              12488.45480756
+      min / median / max:    2119.89250068 / 3284.09495693 / 3800.37239302
+      mean:                  3122.11370189
+
+  PASS-THROUGH TIMING (inbound followed by outbound)
+    measured events:                 26
+    min / median / max seconds:      0 / 0 / 103728
+    inbound with no later outbound:  0
+    Measures the interval between an inbound transfer and the next outbound
+      transfer. It does NOT establish that the units received were the units
+      subsequently sent  -  that requires value-level attribution, which
+      on-chain balances alone cannot provide.
+
+  LIMITATIONS OF THIS SECTION
+    - Amounts are reported per asset and are never summed across assets: this
+        project holds no price data, so a cross-asset total would be a
+        fabricated number.
+
+==============================================================================
+  SECTION 7: MACHINE LEARNING ANALYSIS
+==============================================================================
+  APPROACH:                      DISABLED
+
+  This system will not train a supervised model on labels it cannot defend.
+    Where the real, verifiable labels are too few, it says so and falls back
+    to a method that needs none -- it does not invent labels to produce an
+    accuracy figure.
+
+  WHY THIS APPROACH
+    - ML analysis was disabled for this run (--no-ml).
+
+
+==============================================================================
+  SECTION 8: EVIDENCE SUMMARY AND RISK ANALYSIS
+==============================================================================
+  EVIDENCE CLASS DEFINITIONS USED THROUGHOUT THIS REPORT
+    DIRECT: a single transfer between the wallet and a dataset address
+    INDIRECT: a multi-hop transaction path; continuity is NOT established
+    SUPPORTING: corroborates a finding; can never establish one alone
+    CONTEXTUAL: background such as behavioural unusualness
+    UNVERIFIED: asserted by a source that has not been independently checked
+    INCONCLUSIVE: the search did not complete; nothing may be concluded
+
+  INVESTIGATIVE PRIORITY SCORE (fully itemised)
+    score:                         51.0 points
+    weight of fired components:    51.0 (10 component(s) fired; the score is lower only where one was discounted)
+    band:                          HIGH
+    band thresholds:               medium >= 20.0, high >= 45.0
+    data complete:                 NO
+      Data is CACHED REAL DATA reloaded from disk, not a live fetch, so
+        activity after the cache was written is absent.; This graph was
+        written by an earlier builder and its edges lack: token_contract.
+        Those fields are absent from the CACHE, not from the chain; rebuild
+        the graph to populate them.
+
+    CONTRIBUTIONS (these sum to the score above -- nothing hidden)
+    10 components contributed. The 9 below are itemised in full -- the largest
+      contribution of each distinct indicator. The remaining 1 repeat an
+      indicator already itemised, so they are listed one line each with their
+      own contribution, and anything beyond that limit is subtotalled. The
+      arithmetic reconciles line by line either way.
+
+      + 6.0    [SUPPORTING] CONSOLIDATION_PATTERN
+          component id:            behavior_consolidation_pattern
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                unique_incoming_counterparties = 4
+          threshold:               4 (behavior_min_fanin_counterparties)
+          evidence:
+            - 4 unique incoming counterparties across 26 incoming transfer(s)
+            - Assets involved: ELEVATE, ETH, GIVE, GULD, WIN
+          reason: CONSOLIDATION_PATTERN crossed its configured threshold
+            (behavior_min_fanin_counterparties). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+            0x396343362be2a4da1ce0c1c210945346fb82aa49
+            0x6e36ff75b0d12022748a35d274a5fefd3c8c9071
+            0xb1d9e23a9ee0e7763ce82af2335e00ded8d9e993
+          transaction evidence:
+            0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+            0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+            0x30bbffa3591d5add2b81d16655a3b712530add3cba3393a85ba8695a13ebb220
+            0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+            ... and 6 more
+
+      + 6.0    [SUPPORTING] FAST_INBOUND_OUTBOUND
+          component id:            behavior_fast_inbound_outbound
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                fastest_turnaround_seconds = 0
+          threshold:               600 (behavior_fast_passthrough_max_seconds)
+          evidence:
+            - 24 inbound transfer(s) were followed by an outbound transfer
+                within 600s
+            - Fastest turnaround: 0s (in from
+                0x000000000004444c5dc75cb358380d2e3de08a90 at t=1784522759,
+                out to 0x000000000004444c5dc75cb358380d2e3de08a90)
+          reason: FAST_INBOUND_OUTBOUND crossed its configured threshold
+            (behavior_fast_passthrough_max_seconds). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+            0x396343362be2a4da1ce0c1c210945346fb82aa49
+          transaction evidence:
+            0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+            0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+            0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+            0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+            ... and 6 more
+
+      + 6.0    [SUPPORTING] HIGH_FREQUENCY_COUNTERPARTY
+          component id:            behavior_high_frequency_counterparty_0x000000000004444c5dc75cb358380d2e3de08a90
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                transfer_count = 46
+          threshold:               5 (behavior_high_frequency_min_transfers)
+          evidence:
+            - 46 transfer(s) exchanged with
+                0x000000000004444c5dc75cb358380d2e3de08a90 (incoming +
+                outgoing combined)
+          reason: HIGH_FREQUENCY_COUNTERPARTY crossed its configured threshold
+            (behavior_high_frequency_min_transfers). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+          transaction evidence:
+            0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+            0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+            0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+            0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+            ... and 6 more
+
+      + 6.0    [SUPPORTING] REPEATED_FORWARDING
+          component id:            behavior_repeated_forwarding
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                forwarding_event_count = 25
+          threshold:               2 (behavior_min_forwarding_events)
+          evidence:
+            - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+                t=1784522759, forwarded to
+                0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1784522759 (0s
+                later)
+            - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+                t=1785044831, forwarded to
+                0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785044831 (0s
+                later)
+            - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+                t=1785059027, forwarded to
+                0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785059027 (0s
+                later)
+            - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+                t=1785121487, forwarded to
+                0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785121487 (0s
+                later)
+            - Received from 0x000000000004444c5dc75cb358380d2e3de08a90 at
+                t=1785566087, forwarded to
+                0x66a9893cc07d91d95644aedd05d03f95e1dba8af at t=1785566087 (0s
+                later)
+            - ...and 20 more receive-then-forward event(s)
+          reason: REPEATED_FORWARDING crossed its configured threshold
+            (behavior_min_forwarding_events). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+            0x396343362be2a4da1ce0c1c210945346fb82aa49
+            0x66a9893cc07d91d95644aedd05d03f95e1dba8af
+
+      + 6.0    [SUPPORTING] SPLIT_PATTERN
+          component id:            behavior_split_pattern
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                unique_outgoing_counterparties = 6
+          threshold:               4 (behavior_min_fanout_counterparties)
+          evidence:
+            - 6 unique outgoing counterparties across 52 outgoing transfer(s)
+            - Assets involved: ELEVATE, ETH, GIVE, WIN
+          reason: SPLIT_PATTERN crossed its configured threshold
+            (behavior_min_fanout_counterparties). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+            0x000000000022d473030f116ddee9f6b43ac78ba3
+            0x66a9893cc07d91d95644aedd05d03f95e1dba8af
+            0x888888888887715fb9d9f84175af9e6cce46807e
+            ... and 2 more
+          transaction evidence:
+            0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+            0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+            0x2327151547d5b905cc6044c38ab6e39807c387bc0b78b5fa8383c1e71285099d
+            0x23d957ca8834c0d6716167e9c129bd381d0d3d02857d421f025e2ac62ed2bebe
+            ... and 6 more
+
+      + 6.0    [SUPPORTING] TEMPORAL_BURST
+          component id:            behavior_temporal_burst
+          weight:                  6.0 (risk_weight_investigative_indicator)
+          observed:                burst_transfer_count = 5
+          threshold:               5 (behavior_burst_min_transfers)
+          evidence:
+            - 5 transfer(s) (incoming + outgoing) fell within a 3600-second
+                window
+          reason: TEMPORAL_BURST crossed its configured threshold
+            (behavior_burst_min_transfers). It is classified
+            INVESTIGATIVE_INDICATOR, which is what determines how much it may
+            contribute.
+
+      + 5.0    [INCONCLUSIVE] SEARCH_INCOMPLETE
+          component id:            search_incomplete
+          weight:                  5.0 (risk_weight_incomplete_search)
+          evidence:
+            - The attribution search covered the 2 hop(s) this dataset
+                observes, but was configured for 4 hop(s) in the outbound and
+                inbound direction. Hops beyond 2 were never acquired, so the
+                absence of a match is not established for them.
+          reason: An incomplete search leaves the question open. Priority goes
+            up rather than down, because unexamined search space is not the
+            same as examined-and-clear.
+
+      + 3.0    [SUPPORTING] HIGH_COUNTERPARTY_CONCENTRATION
+          component id:            behavior_high_counterparty_concentration_0x000000000004444c5dc75cb358380d2e3de08a90
+          weight:                  3.0 (risk_weight_supporting_indicator)
+          observed:                top_counterparty_share = 0.5897
+          threshold:               0.5 (behavior_counterparty_concentration_min_share)
+          evidence:
+            - 0x000000000004444c5dc75cb358380d2e3de08a90 accounts for 46 of 78
+                transfer(s) touching this wallet (59.0%)
+            - 9 distinct counterparty address(es) in total
+          reason: HIGH_COUNTERPARTY_CONCENTRATION crossed its configured
+            threshold (behavior_counterparty_concentration_min_share). It is
+            classified SUPPORTING_EVIDENCE, which is what determines how much
+            it may contribute.
+          related addresses:
+            0x000000000004444c5dc75cb358380d2e3de08a90
+          transaction evidence:
+            0x01cfaf838a88b2c589e7ca56c93f84d6dffea9db23a4f0a18a0ca705ecbc41b3
+            0x2311783c9248607b910adac0736baf71f1cc389af8338304ea11dbdfa431bf96
+            0x386d1e5b6d02517b24c7be9fe6ebe06ae841126bcc4fb04859474294d6effd24
+            0x4dfffe84b5d40ec18f3172df905b8e70e28c219233d0ffda103d7ecff7540513
+            ... and 6 more
+
+      + 1.0    [CONTEXTUAL] ASSET_DIVERSITY
+          component id:            behavior_asset_diversity
+          weight:                  1.0 (risk_weight_contextual_indicator)
+          observed:                distinct_asset_count = 5
+          threshold:               4 (behavior_min_asset_diversity)
+          evidence:
+            - 5 distinct asset(s) moved through this wallet across 78
+                transfer(s)
+            - Assets: ELEVATE, ETH, GIVE, GULD, WIN
+          reason: ASSET_DIVERSITY crossed its configured threshold
+            (behavior_min_asset_diversity). It is classified CONTEXTUAL, which
+            is what determines how much it may contribute.
+
+    FURTHER CONTRIBUTIONS, GROUPED BY INDICATOR
+
+      HIGH_FREQUENCY_COUNTERPARTY: 1 further contribution(s)
+        weight 6.0 (risk_weight_investigative_indicator), class SUPPORTING,
+          transfer_count vs threshold 5
+          (behavior_high_frequency_min_transfers)
+        + 6.0     0x66a9893cc07d91d95644aedd05d03f95e1dba8af
+
+      = 51.0 TOTAL (arithmetic verified)
+
+    INDICATORS CHECKED AND NOT TRIGGERED
+      vasp_attribution: No known VASP address was reached by a directed path
+        within the 2 hop(s) this dataset observes (attribution status:
+        INCONCLUSIVE). The configured limit was 4 hop(s), but hops beyond 2
+        are absent from the data, so nothing was concluded about them either
+        way.
+
+    WHAT THIS SCORE IS NOT
+      - This score measures how much follow-up material the investigation
+          produced. It is NOT a probability of criminality, fraud, or
+          sanctions exposure, and it must not be reported as one.
+      - Reaching a known VASP is normal, lawful behaviour for the overwhelming
+          majority of wallets. It contributes here because it gives an
+          investigator a real-world counterparty to serve a request on  -  not
+          because it is suspicious.
+      - Behavioural indicators are observations against configured thresholds.
+          They describe activity; they do not establish intent.
+      - A traced graph path is a chain of transaction relationships, not proof
+          that the same units of value moved end to end.
+      - No component of this score comes from a machine-learning prediction.
+          The score is arithmetic over observed on-chain facts only.
+
+  CONSOLIDATED LIMITATIONS
+    - A traceable path through the graph is a TRANSACTION PATH, not proof that
+        the same funds moved end to end. An intermediary can commingle, swap,
+        or hold value, so A->B->C does not establish continuity.
+    - A dataset label is an assertion by its source, not proof of ownership.
+        Only OFFICIAL_DISCLOSURE and DIRECTLY_VERIFIED entries are
+        first-party.
+    - A behavioural indicator is an observation against a stated threshold. It
+        is not an allegation of criminal conduct.
+    - Attribution coverage is bounded by the dataset: 6 address(es) are known.
+        An unmatched counterparty is NOT_IN_DATASET, which is not the same as
+        'not a VASP'.
+    - This report was produced from CACHED REAL DATA: genuine chain data
+        acquired in an earlier run and reloaded from disk. It is not live. Any
+        activity after the cache was written is absent.
+    - At least one path search was limited by the data horizon (2 hop(s)
+        observed, 4 requested), so its result is INCONCLUSIVE rather than
+        negative beyond that depth.
+    - Amounts are reported per asset and are never summed across assets: this
+        project holds no price data, so a cross-asset total would be a
+        fabricated number.
+
+==============================================================================
+  SECTION 9: FINAL INVESTIGATION CONCLUSION
+==============================================================================
+  VASP ATTRIBUTION: INCONCLUSIVE. No known VASP address was connected within
+    the 2 hop(s) this dataset observes, and that finding IS complete at 2
+    hop(s). It is inconclusive for the configured 4 hop(s) because this
+    dataset was not acquired to that depth, so the deeper edges are absent
+    from it. Raising the hop limit alone cannot change that: the missing edges
+    are not in the data.
+
+  INVESTIGATIVE PRIORITY: 51.0 points, band HIGH (medium at 20.0, high at
+    45.0). The score is the sum of the itemised contributions in section 8 and
+    nothing else. It is an open-ended tally of how much follow-up material was
+    found, not a percentage of some maximum, and not a probability of
+    wrongdoing.
+
+  BEHAVIOURAL INDICATORS: 9 observed, of which 7 are investigative indicators.
+    None of these is an allegation of criminal conduct; each is an observation
+    with a stated threshold that requires further verification.
+
+  ML: disabled for this run.
+
+  DATA COMPLETENESS: the underlying dataset is INCOMPLETE (Data is CACHED REAL
+    DATA reloaded from disk, not a live fetch, so activity after the cache was
+    written is absent.; This graph was written by an earlier builder and its
+    edges lack: token_contract. Those fields are absent from the CACHE, not
+    from the chain; rebuild the graph to populate them.). Every negative
+    finding in this report is provisional.
+
+  SEARCH DEPTH: this dataset's edges are complete to 2 hop(s) around the
+    wallet, but the search was configured for 4 hop(s). A route of 3+ hops is
+    therefore absent from the data rather than ruled out. Findings at up to 2
+    hop(s) are complete; anything deeper is unobserved, which is why the path
+    search reports INCONCLUSIVE rather than NONE.
+
+  This report is an investigative aid. It identifies addresses, transaction
+    paths and measured behavioural indicators, each with the evidence needed
+    to check it. It does not establish criminal conduct, and no finding here
+    should be acted on without independent verification of the underlying
+    transactions.
+
+==============================================================================
+  INVESTIGATION COMPLETE -- 0x75c0623bae00749550cf1c1703e7382038b3109a on ethereum
+  DATA MODE: CACHED REAL DATA   DURATION: 0.147s
+==============================================================================

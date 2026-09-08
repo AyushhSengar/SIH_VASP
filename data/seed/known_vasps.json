@@ -1,0 +1,84 @@
+{
+  "_comment": "Production VASP seed dataset. Every entry here is a REAL, publicly-documented address. This is a small, deliberately curated sample for prototype purposes, not a comprehensive VASP intelligence database — addresses are NOT added to inflate the count, because an unsourced address would weaken every conclusion drawn from this file. Never mix synthetic/demo addresses into this file — see data/seed/demo_known_vasps.json for those.",
+  "_provenance": "`source_type` uses the taxonomy in app/attribution/models.py::SeedSourceType and states what the ownership claim actually rests on. 'community_label' means crowd-sourced explorer tagging (an investigative lead, NOT proof of ownership); 'official_disclosure' means the VASP itself published the address. Adding a new address is a pure JSON edit — no Python change is required.",
+  "seed_addresses": [
+    {
+      "address": "0x631fc1ea2270e98fbd9d92658ece0f5a269aa161",
+      "vasp_name": "Binance",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "Etherscan public address label",
+      "source_type": "community_label",
+      "source_url": "https://etherscan.io/address/0x631fc1ea2270e98fbd9d92658ece0f5a269aa161",
+      "confidence_note": "Labeled 'Binance: Hot Wallet' by Etherscan's community/crowd-sourced address tagging. This is a third-party label, not a reserve disclosure confirmed directly by Binance; labels can be stale or occasionally wrong. Suitable as an investigative lead, not as standalone proof of ownership.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "community_label",
+      "verification_status": "third_party_labeled"
+    },
+    {
+      "address": "0xf977814e90da44bfa03b6295a0616a897441acec",
+      "vasp_name": "Binance",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "Etherscan public address label",
+      "source_type": "community_label",
+      "source_url": "https://etherscan.io/address/0xf977814e90da44bfa03b6295a0616a897441acec",
+      "confidence_note": "Labeled 'Binance: Hot Wallet 20' by Etherscan's community/crowd-sourced address tagging. Same caveats as the entry above: third-party label, not a Binance-confirmed disclosure.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "community_label",
+      "verification_status": "third_party_labeled"
+    },
+    {
+      "address": "0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0",
+      "vasp_name": "Kraken",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "Etherscan public address label",
+      "source_type": "community_label",
+      "source_url": "https://etherscan.io/address/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0",
+      "confidence_note": "Labeled 'Kraken 4' by Etherscan's community/crowd-sourced address tagging. Third-party label, not a Kraken-confirmed disclosure; treat as an investigative lead.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "community_label",
+      "verification_status": "third_party_labeled"
+    },
+    {
+      "address": "0xe9f7ecae3a53d2a67105292894676b00d1fab785",
+      "vasp_name": "Kraken",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "Etherscan public address label",
+      "source_type": "community_label",
+      "source_url": "https://etherscan.io/address/0xe9f7ecae3a53d2a67105292894676b00d1fab785",
+      "confidence_note": "Labeled 'Kraken: Hot Wallet' by Etherscan's community/crowd-sourced address tagging. Third-party label, not a Kraken-confirmed disclosure; treat as an investigative lead.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "community_label",
+      "verification_status": "third_party_labeled"
+    },
+    {
+      "address": "0x00bdb5699745f5b860228c8f939abf1b9ae374ed",
+      "vasp_name": "Bitstamp",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "Etherscan public address label",
+      "source_type": "community_label",
+      "source_url": "https://etherscan.io/address/0x00bdb5699745f5b860228c8f939abf1b9ae374ed",
+      "confidence_note": "Labeled 'Bitstamp 1' by Etherscan's community/crowd-sourced address tagging. Third-party label, not a Bitstamp-confirmed disclosure; treat as an investigative lead.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "community_label",
+      "verification_status": "third_party_labeled"
+    },
+    {
+      "address": "0xc5451b523d5fffe1351337a221688a62806ad91a",
+      "vasp_name": "OKX",
+      "entity_type": "exchange",
+      "chain": "ethereum",
+      "source": "OKX official Proof-of-Reserves documentation (corroborated by Etherscan public address label)",
+      "source_type": "official_disclosure",
+      "source_url": "https://www.okx.com/en-us/help/how-to-verify-okx-ownership-and-balance-of-the-wallet-address",
+      "confidence_note": "This exact address is cited by OKX's own published Proof-of-Reserves verification documentation as one of OKX's addresses, and is independently labeled 'OKX 10' by Etherscan's community tagging. Stronger provenance than a bare community label because the operator itself published it — but still not a live, per-investigation reserve attestation.",
+      "wallet_role": "hot_wallet",
+      "source_evidence_type": "official_por_disclosure",
+      "verification_status": "officially_documented"
+    }
+  ]
+}

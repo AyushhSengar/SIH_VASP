@@ -1,0 +1,23 @@
+{
+  "_comment": "SYNTHETIC DEMONSTRATION DATA ONLY. None of these addresses are real VASPs or real on-chain entities. Used exclusively to validate the attribution pipeline end-to-end (tests and explicit --demo CLI runs). Never loaded by default and never presented as real-world attribution.",
+  "seed_addresses": [
+    {
+      "address": "0x4444444444444444444444444444444444444444",
+      "vasp_name": "DEMO_VASP",
+      "entity_type": "demo_exchange",
+      "chain": "ethereum",
+      "source": "synthetic_demo_fixture",
+      "source_type": "synthetic_demo",
+      "confidence_note": "Synthetic address used only to demonstrate the attribution pipeline. Not a real VASP."
+    },
+    {
+      "address": "0x5555555555555555555555555555555555555555",
+      "vasp_name": "DEMO_VASP_BETA",
+      "entity_type": "demo_exchange",
+      "chain": "ethereum",
+      "source": "synthetic_demo_fixture",
+      "source_type": "synthetic_demo",
+      "confidence_note": "Synthetic address used only to demonstrate multi-candidate attribution output. Not a real VASP."
+    }
+  ]
+}

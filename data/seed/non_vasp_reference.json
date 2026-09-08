@@ -1,0 +1,149 @@
+{
+  "_comment": "NEGATIVE reference set for the supervised 'vasp_ownership' ML task. Every entry is a REAL, publicly-documented Ethereum address that is NOT a VASP-controlled custodial account, and every entry states the documented reason why. This file exists because absence from data/seed/known_vasps.json is NOT evidence that an address is not VASP-controlled (see app/ml/real_labels.py) - a negative training label needs its own documented reason, exactly like a positive one. Addresses are NOT added here to reach a sample count: an entry whose reason cannot be stated in one verifiable sentence does not belong in this file, and the ML pipeline reports the resulting shortfall honestly rather than being padded.",
+  "_scope": "An entry becomes a training label ONLY if the address is actually present in the investigated graph with enough activity to clear ML_MIN_TRANSFERS_PER_SAMPLE. This file is a reference list, not a training set: an address nobody transacted with in this investigation contributes nothing and is counted as 'not present in this dataset' rather than being labelled from an all-zero feature vector.",
+  "_reason_classes": {
+    "PROTOCOL_EVIDENT_NON_ACCOUNT": "No private key can control this address, so it cannot be an account any operator holds customer funds in.",
+    "PUBLIC_BURN_CONVENTION": "Used across the ecosystem as an intentional value sink. Not an account operated on behalf of customers.",
+    "PUBLIC_SELF_IDENTIFICATION": "The controlling individual has publicly and repeatedly identified this address as their own personal wallet, i.e. self-custody rather than a service holding third-party funds.",
+    "NON_CUSTODIAL_PROTOCOL_CONTRACT": "Deployed contract whose published, verified source code is a permissionless protocol - swaps, wrapping, registry, staking or aggregation. It holds pooled protocol state, not per-customer deposit balances owed by an operator, and there is no operator-controlled withdrawal of user funds. Being a contract alone is NOT the reason: a custodial exchange can and does deploy contracts."
+  },
+  "_evidence_types": {
+    "PROTOCOL_RULE": "Follows from how EVM chains work, not from anyone's opinion.",
+    "PUBLISHED_SOURCE_CODE": "The contract's verified source code on a public explorer is the evidence.",
+    "PUBLIC_STATEMENT": "The controlling party has said so publicly.",
+    "ECOSYSTEM_CONVENTION": "Long-standing, widely documented usage."
+  },
+  "non_vasp_addresses": [
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "entity_name": "Zero address",
+      "reason_class": "PROTOCOL_EVIDENT_NON_ACCOUNT",
+      "reason": "The all-zero address has no derivable private key, so no operator can sign for it or move value out of it. It appears in transfer data as the mint/burn sentinel of ERC-20 implementations, never as a custodial deposit account.",
+      "evidence_type": "PROTOCOL_RULE",
+      "source": "EVM address derivation and the ERC-20 specification's mint/burn convention",
+      "source_url": "https://etherscan.io/address/0x0000000000000000000000000000000000000000"
+    },
+    {
+      "address": "0x000000000000000000000000000000000000dead",
+      "entity_name": "Conventional burn address",
+      "reason_class": "PUBLIC_BURN_CONVENTION",
+      "reason": "A vanity address with no known private key, used across the ecosystem as an explicit burn destination. Value sent here is understood to be destroyed, which is the opposite of a custodial balance owed back to a customer.",
+      "evidence_type": "ECOSYSTEM_CONVENTION",
+      "source": "Widely documented ecosystem burn convention",
+      "source_url": "https://etherscan.io/address/0x000000000000000000000000000000000000dead"
+    },
+    {
+      "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+      "entity_name": "vitalik.eth (individual self-custody wallet)",
+      "reason_class": "PUBLIC_SELF_IDENTIFICATION",
+      "reason": "Publicly and repeatedly identified by Vitalik Buterin as his own personal wallet, including in his own posts about donations made from it. A named individual's own wallet is self-custody: no third party's funds are held in it, so it is not a VASP-controlled account.",
+      "evidence_type": "PUBLIC_STATEMENT",
+      "source": "Repeated public self-identification; resolves to the ENS name vitalik.eth",
+      "source_url": "https://etherscan.io/address/0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+    },
+    {
+      "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "entity_name": "WETH9 (Wrapped Ether)",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The canonical Wrapped Ether contract. Its verified source has exactly two value-moving functions - deposit() mints WETH to the caller and withdraw() burns the caller's own WETH for ETH - and no owner, admin or privileged withdrawal path. Nobody can move another address's balance, so no operator can hold customer funds here.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified WETH9 source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code"
+    },
+    {
+      "address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+      "entity_name": "Uniswap V2 Router 02",
+      "group": "uniswap",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "Stateless swap router for Uniswap V2. It forwards tokens within a single transaction and holds no balances between transactions, so there is no deposit balance for anyone to be a customer of.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Uniswap V2 periphery source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x7a250d5630b4cf539739df2c5dacb4c659f2488d#code"
+    },
+    {
+      "address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+      "entity_name": "Uniswap V2 Factory",
+      "group": "uniswap",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "Deploys Uniswap V2 pair contracts. It custodies nothing at all - its only state is the pair registry - so it cannot be a custodial account.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Uniswap V2 core source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f#code"
+    },
+    {
+      "address": "0xe592427a0aece92de3edee1f18e0157c05861564",
+      "entity_name": "Uniswap V3 SwapRouter",
+      "group": "uniswap",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "Stateless swap router for Uniswap V3, same reasoning as the V2 router: tokens pass through inside one transaction and no per-user balance is retained.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Uniswap V3 periphery source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0xe592427a0aece92de3edee1f18e0157c05861564#code"
+    },
+    {
+      "address": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "entity_name": "Uniswap V3 SwapRouter02",
+      "group": "uniswap",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The later Uniswap router supporting both V2 and V3 pools. Stateless within a transaction and holds no customer balances.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Uniswap swap-router-contracts source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45#code"
+    },
+    {
+      "address": "0xca11bde05977b3631167028862be2a173976ca11",
+      "entity_name": "Multicall3",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "A stateless batching helper deployed at the same address on many chains. It aggregates read and write calls within one transaction and keeps no balances, so it holds nothing on anyone's behalf.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Multicall3 source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code"
+    },
+    {
+      "address": "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e",
+      "entity_name": "ENS Registry",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The Ethereum Name Service registry maps names to resolvers. It is a naming database, not a value store, and holds no customer funds.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified ENS registry source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e#code"
+    },
+    {
+      "address": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "entity_name": "UNI governance token contract",
+      "group": "uniswap",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The UNI ERC-20 contract. It records holder balances as protocol state that only each holder can move; it is not an account in which an operator holds customers' assets.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified UNI token source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x1f9840a85d5af5bf1d1762f925bdaddc4201f984#code"
+    },
+    {
+      "address": "0x6b175474e89094c44da98b954eedeac495271d0f",
+      "entity_name": "Dai stablecoin contract",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The Dai ERC-20 contract of the permissionless Maker protocol. Dai is minted against on-chain collateral by users themselves; the contract is not an operator-held deposit account. Deliberately included where fiat-backed stablecoin contracts are NOT: an issuer that takes fiat deposits and redeems them is a plausible VASP, so those contracts would be an unsound negative.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Dai source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code"
+    },
+    {
+      "address": "0x00000000219ab540356cbb839cbe05303d7705fa",
+      "entity_name": "Beacon Chain Deposit Contract",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "Ethereum's consensus-layer deposit contract. Deposits are one-way and credited to validator keys by the protocol itself; there is no operator who can move them, so it is not a custodial account.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified deposit contract source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0x00000000219ab540356cbb839cbe05303d7705fa#code"
+    },
+    {
+      "address": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84",
+      "entity_name": "Lido stETH",
+      "reason_class": "NON_CUSTODIAL_PROTOCOL_CONTRACT",
+      "reason": "The stETH liquid-staking token contract. A staker's position is represented by a token in their own wallet that only they can transfer, rather than by a balance an operator owes them off-chain.",
+      "evidence_type": "PUBLISHED_SOURCE_CODE",
+      "source": "Verified Lido stETH source code on Etherscan",
+      "source_url": "https://etherscan.io/address/0xae7ab96520de3a18e5e111b5eaab095312d7fe84#code"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+# Credentials. NEVER commit a filled-in .env -- it holds ETHERSCAN_API_KEY and
+# may hold a DATABASE_URL with a password. `.env.example` is the tracked
+# template and must stay free of real values.
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Regenerable data. Everything here is a cache or an artifact that the next run
+# rebuilds -- EXCEPT data/seed/, which is curated provenance-carrying data and
+# is tracked deliberately.
+data/cache/
+data/graphs/*
+!data/graphs/.gitkeep
+data/fixtures/*
+!data/fixtures/.gitkeep
+data/ml/*
+!data/ml/.gitkeep
+*.gpickle
+*.db
+*.sqlite3
+
+# Scratch space for end-to-end verification output. Project-local rather than
+# /tmp because Git Bash and Python disagree about where /tmp is on Windows.
+.scratch/
+out_report.txt
+out_report.err
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
